@@ -254,7 +254,7 @@ current[length] = '\0';
     current_index++;
   }
   tokens[tokens_index].value='\0';
-  tokens[tokens_index].type= ENDS_OF_TOKENS;
+  tokens[tokens_index].type= END_OF_TOKENS;
   return tokens;
 }
 
