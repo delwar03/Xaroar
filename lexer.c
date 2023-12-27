@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
+
 typedef enum {
     BEGINNING,
     INT,
@@ -20,7 +21,7 @@ typedef enum {
     size_t line_num;
   } Token;
 
-  size_t line_number=0;
+  size_t line_number = 1;
 
 
   void print_token(Token token){
@@ -30,7 +31,7 @@ typedef enum {
         printf("%c", token.value[i]);
     }
     printf("'");
-    printf("\nline number: %zu",token.line_num);
+    printf("\nline number: %zu ",token.line_num);
     switch(token.type){
         case INT:
         printf("TOKEN TYPE: INT\n");
@@ -59,6 +60,14 @@ typedef enum {
         case BEGINNING:
         printf("BEGINNING\n");
         break;
+    }
+  }
+
+  void print_tokens (Token *tokens) {
+    int ind = 0;
+    while(tokens[ind].type != END_OF_TOKENS) {
+      print_token(tokens[ind]);
+      ind++;
     }
   }
 
@@ -251,7 +260,7 @@ current[length] = '\0';
       current_index--;
     } else if(current[current_index] == '\n'){
       line_number += 1;
-    } 
+    }
     free(token);
     current_index++;
   }
@@ -263,9 +272,8 @@ current[length] = '\0';
 
 int main () {
   FILE *file = fopen("test.txt", "r");
-  Token *token;
-  print_token(*token);
-  printf("Hello World!!\n");
+  Token *tokens = lexer(file);
+  print_tokens(tokens);
   return 0;
 }
 
