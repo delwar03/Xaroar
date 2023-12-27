@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "lexerf.h"
+#include "lexer.h"
 
 typedef enum {
   INT_LIT,

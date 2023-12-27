@@ -13,6 +13,7 @@ typedef enum {
     COMP,
     END_OF_TOKENS,
 } TokenType;
+
   typedef struct {
     TokenType type;
     char *value;
@@ -25,8 +26,8 @@ typedef enum {
   void print_token(Token token){
     printf("TOKEN VALUE: ");
     printf("'");
-    for(int i=0; token.value[i] !='\0';i++){
-        printf("%c",token.value[i]);
+    for(int i = 0; token.value[i] != '\0'; i++){
+        printf("%c", token.value[i]);
     }
     printf("'");
     printf("\nline number: %zu",token.line_num);
@@ -62,37 +63,37 @@ typedef enum {
   }
 
   Token *generate_number(char *current,int *current_index){
-    Token *token=malloc(sizeof(Token));
-    token->line_num=malloc(sizeof(size_t));
-    token->line_num=line_number;
-    token->type=INT;
-    char *value=malloc(sizeof(char) * 8);
-    int value_index=0;
-    while(isdigit(current[*current_index]) && current[*current_index]!='\0'){
+    Token *token =(Token *) malloc(sizeof(Token));
+    token->line_num =(size_t) malloc(sizeof(size_t));
+    token->line_num = line_number;
+    token->type = INT;
+    char *value =(char *) malloc(sizeof(char) * 8);
+    int value_index = 0;
+    while(isdigit(current[*current_index]) && current[*current_index] != '\0'){
         if(!isdigit(current[*current_index])){
             break;
         }
-        value[value_index]=current[*current_index];
+        value[value_index] = current[*current_index];
         value_index++;
-        *current_index +=1;
+        *current_index += 1;
     }
-    value[value_index]='\0';
-    token->value=value;
+    value[value_index] = '\0';
+    token->value = value;
     return token;
   }
 
-  Token *generate_keyword_or_identifier(char *current,int *current_index){
-    Token *token=malloc(sizeof(Token));
-    token->line_num=malloc(sizeof(size_t));
-    token->line_num=line_number;
-    char *keyword=malloc(sizeof(char) * 8);
-    int keyword_index=0;
-    while(isalpha(current[*current_index]) && current[*current_index]!='\0'){
-        keyword[keyword_index]=current[*current_index];
+  Token *generate_keyword_or_identifier(char *current, int *current_index){
+    Token *token =(Token *) malloc(sizeof(Token));
+    token->line_num =(size_t) malloc(sizeof(size_t));
+    token->line_num = line_number;
+    char *keyword =(char *) malloc(sizeof(char) * 8);
+    int keyword_index = 0;
+    while(isalpha(current[*current_index]) && current[*current_index] != '\0'){
+        keyword[keyword_index] = current[*current_index];
         keyword_index++;
-        *current_index +=1;
+        *current_index += 1;
     }
-    keyword[keyword_index]='\0';
+    keyword[keyword_index] = '\0';
     if(strcmp(keyword, "exit") == 0){
     token->type = KEYWORD;
     token->value = "EXIT";
@@ -128,10 +129,10 @@ typedef enum {
 }
 
 Token *generate_string_token(char *current, int *current_index){
-  Token *token = malloc(sizeof(Token));
-  token->line_num = malloc(sizeof(size_t));
+  Token *token =(Token *) malloc(sizeof(Token));
+  token->line_num =(size_t) malloc(sizeof(size_t));
   token->line_num = line_number;
-  char *value = malloc(sizeof(char) * 64);
+  char *value =(char *) malloc(sizeof(char) * 64);
   int value_index = 0;
   *current_index += 1;
   while(current[*current_index] != '"'){
@@ -146,11 +147,11 @@ Token *generate_string_token(char *current, int *current_index){
 }
 
 Token *generate_separator_or_operator(char *current, int *current_index, TokenType type){
-  Token *token = malloc(sizeof(Token));
-  token->value = malloc(sizeof(char) * 2);
+  Token *token =(Token *) malloc(sizeof(Token));
+  token->value =(char *) malloc(sizeof(char) * 2);
   token->value[0] = current[*current_index];
   token->value[1] = '\0';
-  token->line_num = malloc(sizeof(size_t));
+  token->line_num =(size_t) malloc(sizeof(size_t));
   token->line_num = line_number;
   token->type = type;
   return token;
@@ -166,7 +167,7 @@ Token *lexer(FILE *file){
   length = ftell(file);
   fseek(file, 0, SEEK_SET);
 
-  current = malloc(sizeof(char) * length);
+  current =(char *) malloc(sizeof(char) * length);
   fread(current, 1, length, file);
 
   fclose(file);
@@ -176,11 +177,11 @@ current[length] = '\0';
 
   int number_of_tokens = 12;
   int tokens_size = 0;
-  Token *tokens = malloc(sizeof(Token) * number_of_tokens);
+  Token *tokens =(Token *) malloc(sizeof(Token) * number_of_tokens);
   tokens_index = 0;
 
   while(current[current_index] != '\0'){
-    Token *token = malloc(sizeof(Token));
+    Token *token =(Token *) malloc(sizeof(Token));
     tokens_size++;
     if(tokens_size > number_of_tokens){
       number_of_tokens *= 1.5;
@@ -260,6 +261,12 @@ current[length] = '\0';
 }
 
 
-
+int main () {
+  FILE *file = fopen("test.txt", "r");
+  Token *token;
+  print_token(*token);
+  printf("Hello World!!\n");
+  return 0;
+}
 
 

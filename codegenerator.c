@@ -5,8 +5,8 @@
 #include <ctype.h>
 #include <assert.h>
 
-#include "lexerf.h"
-#include "parserf.h"
+#include "lexer.h"
+#include "parser.h"
 #include "./hashmap/hashmapoperators.h"
 #include "./hashmap/hashmap.h"
 
