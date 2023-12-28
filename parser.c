@@ -131,22 +131,20 @@ Node *parser(Token *tokens){
   return root;
 }
 int main() {
-    FILE *file = fopen("test.txt", "r");
-    if (file == NULL) {
-        perror("Error opening file");
-        return 1;
-    }
+    // Replace this with actual token input from your lexer
+    Token tokens[] = {
+        {KEYWORD, "EXIT"},
+        {SEPARATOR, "("},
+        {INT, "42"},
+        {SEPARATOR, ")"},
+        {SEPARATOR, ";"},
+        {END_OF_TOKENS, ""}
+    };
 
-    Token *tokens = lexer(file);
+    Node *parse_tree = parser(tokens);
 
-    Node *ast = parser(tokens);
+    // Uncomment the following line if you've implemented the free_tree function
+    // free_tree(parse_tree);
 
-    printf("Abstract Syntax Tree:\n");
-    print_tree(ast, 0, "root");
-
-    free_tokens(tokens);
-    free_tree(ast);
-
-    fclose(file);
     return 0;
 }
