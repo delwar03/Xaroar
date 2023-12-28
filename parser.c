@@ -14,8 +14,7 @@ typedef struct Node {
 
 void print_tree(Node *node,int indent, char *identifier){
   if(node == NULL){
-    return;
-  }
+    return;  }
   for(int i = 0; i < indent; i++){
   	printf(" ");
   }
