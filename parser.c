@@ -67,7 +67,7 @@ Node *parser(Token *tokens){
     	 	root->right = exit_node;
     	 	current = exit_node;
     	 	current_token++;
-    	 	if(current_token-> == END_OF_TOKENS){
+    	 	if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON OPEN\n");
       				}
     	 	if(strcmp(current_token->value, "(") == 0 && current_token->type == SEPARATOR){
@@ -75,10 +75,10 @@ Node *parser(Token *tokens){
       			open_paren_node = init_node(open_paren_node, current_token->value, SEPARATOR);
       			current->left = open_paren_node;
       			current_token++;
-      			if(current_token-> == END_OF_TOKENS){
+      			if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON INT\n");
       				}
-      			if(current_token-> == INT){
+      			if(current_token->type == INT){
       				Node *expr_node = malloc(sizeof(Node));
       				expr_node = init_node(expr_node, current_token->value, INT);
       				current->left->left = expr_node;
@@ -86,12 +86,12 @@ Node *parser(Token *tokens){
 				if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON CLOSE\n");
       				}
-				if(strcmp(current_token->value, ")") == 0 && current_token->type  == SEPARATOR && current-token->type != END_OF_TOKENS){
+				if(strcmp(current_token->value, ")") == 0 && current_token->type  == SEPARATOR && current_token->type != END_OF_TOKENS){
 				Node *close_paren_node = malloc(sizeof(Node));
       				close_paren_node = init_node(close_paren_node, current_token->value, SEPARATOR);
       				current->left->right = close_paren_node;
       				current_token++;
-      				if(current_token-> == END_OF_TOKENS){
+      				if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON CLOSE\n");
       				}
       				if(strcmp(current_token->value, ";") == 0 && current_token->type == SEPARATOR){
@@ -129,4 +129,42 @@ Node *parser(Token *tokens){
   }
   print_tree(root, 0, "root");
   return root;
+}
+
+int main() {
+    // Sample tokens
+    Token sample_tokens[] = {
+        {KEYWORD, "INT", 1},
+        {IDENTIFIER, "x", 1},
+        {OPERATOR, "=", 1},
+        {INT, "5", 1},
+        {SEPARATOR, ",", 1},
+        {IDENTIFIER, "y", 1},
+        {OPERATOR, "=", 1},
+        {INT, "3", 1},
+        {SEPARATOR, ";", 1},
+        {KEYWORD, "IF", 1},
+        {SEPARATOR, "(", 2},
+        {IDENTIFIER, "x", 2},
+        {IDENTIFIER, "y", 2},
+        {SEPARATOR, ")", 2},
+        {SEPARATOR, "{", 2},
+        {IDENTIFIER, "x", 2},
+        {OPERATOR, "=", 3},
+        {INT, "3", 3},
+        {SEPARATOR, ";", 3},
+        {SEPARATOR, "}", 3},
+        {SEPARATOR, "else", 4},
+        {SEPARATOR, "{", 4},
+        {IDENTIFIER, "y", 4},
+        {OPERATOR, "=", 5},
+        {INT, "7", 5},
+        {SEPARATOR, ";", 5},
+        {SEPARATOR, "}", 5},
+        {SEPARATOR, NULL, 6},
+    };
+    Node* parse_tree = parser(sample_tokens);
+    print_tree(parse_tree, 0, "root");    
+
+    return 0;
 }
