@@ -86,7 +86,7 @@ Node *parser(Token *tokens){
 				if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON CLOSE\n");
       				}
-				if(strcmp(current_token->value, ")") == 0 && current_token->type  == SEPARATOR && current-token->type != END_OF_TOKENS){
+				if(strcmp(current_token->value, ")") == 0 && current_token->type  == SEPARATOR && current_token->type != END_OF_TOKENS){
 				Node *close_paren_node = malloc(sizeof(Node));
       				close_paren_node = init_node(close_paren_node, current_token->value, SEPARATOR);
       				current->left->right = close_paren_node;
