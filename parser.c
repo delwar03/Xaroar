@@ -130,41 +130,23 @@ Node *parser(Token *tokens){
   print_tree(root, 0, "root");
   return root;
 }
-
 int main() {
-    // Sample tokens
-    Token sample_tokens[] = {
-        {KEYWORD, "INT", 1},
-        {IDENTIFIER, "x", 1},
-        {OPERATOR, "=", 1},
-        {INT, "5", 1},
-        {SEPARATOR, ",", 1},
-        {IDENTIFIER, "y", 1},
-        {OPERATOR, "=", 1},
-        {INT, "3", 1},
-        {SEPARATOR, ";", 1},
-        {KEYWORD, "IF", 1},
-        {SEPARATOR, "(", 2},
-        {IDENTIFIER, "x", 2},
-        {IDENTIFIER, "y", 2},
-        {SEPARATOR, ")", 2},
-        {SEPARATOR, "{", 2},
-        {IDENTIFIER, "x", 2},
-        {OPERATOR, "=", 3},
-        {INT, "3", 3},
-        {SEPARATOR, ";", 3},
-        {SEPARATOR, "}", 3},
-        {SEPARATOR, "else", 4},
-        {SEPARATOR, "{", 4},
-        {IDENTIFIER, "y", 4},
-        {OPERATOR, "=", 5},
-        {INT, "7", 5},
-        {SEPARATOR, ";", 5},
-        {SEPARATOR, "}", 5},
-        {SEPARATOR, NULL, 6},
-    };
-    Node* parse_tree = parser(sample_tokens);
-    print_tree(parse_tree, 0, "root");    
+    FILE *file = fopen("test.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
 
+    Token *tokens = lexer(file);
+
+    Node *ast = parser(tokens);
+
+    printf("Abstract Syntax Tree:\n");
+    print_tree(ast, 0, "root");
+
+    free_tokens(tokens);
+    free_tree(ast);
+
+    fclose(file);
     return 0;
 }
