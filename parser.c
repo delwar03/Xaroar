@@ -131,7 +131,6 @@ Node *parser(Token *tokens){
   return root;
 }
 int main() {
-    // Replace this with actual token input from your lexer
     Token tokens[] = {
         {KEYWORD, "EXIT"},
         {SEPARATOR, "("},
@@ -143,8 +142,7 @@ int main() {
 
     Node *parse_tree = parser(tokens);
 
-    // Uncomment the following line if you've implemented the free_tree function
-    // free_tree(parse_tree);
+   
 
     return 0;
 }
