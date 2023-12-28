@@ -23,7 +23,7 @@ typedef enum {
 
   size_t line_number = 1;
 
-
+  /* function that will print a token */
   void print_token(Token token){
     printf("TOKEN VALUE: ");
     printf("'");
@@ -63,14 +63,14 @@ typedef enum {
     }
   }
 
+  /* function that will print bunch of tokens */
   void print_tokens (Token *tokens) {
-    int ind = 0;
-    while(tokens[ind].type != END_OF_TOKENS) {
-      print_token(tokens[ind]);
-      ind++;
-    }
+   for(int i = 0; tokens[i].type != END_OF_TOKENS; i++) {
+    print_token(tokens[i]);
+   }
   }
 
+  /* function that will generate numbers */
   Token *generate_number(char *current,int *current_index){
     Token *token =(Token *) malloc(sizeof(Token));
     token->line_num =(size_t) malloc(sizeof(size_t));
@@ -91,6 +91,7 @@ typedef enum {
     return token;
   }
 
+  /* function that will generate keyword/identifiers */
   Token *generate_keyword_or_identifier(char *current, int *current_index){
     Token *token =(Token *) malloc(sizeof(Token));
     token->line_num =(size_t) malloc(sizeof(size_t));
@@ -137,6 +138,7 @@ typedef enum {
   return token;
 }
 
+/* function that will generate string token */
 Token *generate_string_token(char *current, int *current_index){
   Token *token =(Token *) malloc(sizeof(Token));
   token->line_num =(size_t) malloc(sizeof(size_t));
@@ -155,6 +157,7 @@ Token *generate_string_token(char *current, int *current_index){
   return token;
 }
 
+/* function that will generate seperator/operator */
 Token *generate_separator_or_operator(char *current, int *current_index, TokenType type){
   Token *token =(Token *) malloc(sizeof(Token));
   token->value =(char *) malloc(sizeof(char) * 2);
@@ -168,6 +171,7 @@ Token *generate_separator_or_operator(char *current, int *current_index, TokenTy
 
 size_t tokens_index;
 
+/* lexer function that will tokenize the input */
 Token *lexer(FILE *file){
   int length;
   char *current = 0;
@@ -276,5 +280,4 @@ int main () {
   print_tokens(tokens);
   return 0;
 }
-
 
