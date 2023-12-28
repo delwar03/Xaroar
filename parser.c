@@ -130,3 +130,23 @@ Node *parser(Token *tokens){
   print_tree(root, 0, "root");
   return root;
 }
+int main() {
+    FILE *file = fopen("test.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    Token *tokens = lexer(file);
+
+    Node *ast = parser(tokens);
+
+    printf("Abstract Syntax Tree:\n");
+    print_tree(ast, 0, "root");
+
+    free_tokens(tokens);
+    free_tree(ast);
+
+    fclose(file);
+    return 0;
+}
