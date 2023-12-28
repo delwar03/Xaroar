@@ -67,7 +67,7 @@ Node *parser(Token *tokens){
     	 	root->right = exit_node;
     	 	current = exit_node;
     	 	current_token++;
-    	 	if(current_token-> == END_OF_TOKENS){
+    	 	if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON OPEN\n");
       				}
     	 	if(strcmp(current_token->value, "(") == 0 && current_token->type == SEPARATOR){
@@ -75,10 +75,10 @@ Node *parser(Token *tokens){
       			open_paren_node = init_node(open_paren_node, current_token->value, SEPARATOR);
       			current->left = open_paren_node;
       			current_token++;
-      			if(current_token-> == END_OF_TOKENS){
+      			if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON INT\n");
       				}
-      			if(current_token-> == INT){
+      			if(current_token->type == INT){
       				Node *expr_node = malloc(sizeof(Node));
       				expr_node = init_node(expr_node, current_token->value, INT);
       				current->left->left = expr_node;
@@ -91,7 +91,7 @@ Node *parser(Token *tokens){
       				close_paren_node = init_node(close_paren_node, current_token->value, SEPARATOR);
       				current->left->right = close_paren_node;
       				current_token++;
-      				if(current_token-> == END_OF_TOKENS){
+      				if(current_token->type == END_OF_TOKENS){
       					print_error("Invalid Syntax ON CLOSE\n");
       				}
       				if(strcmp(current_token->value, ";") == 0 && current_token->type == SEPARATOR){
