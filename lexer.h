@@ -1,5 +1,6 @@
-#ifndef LEXER_H_
-#define LEXER_H_
+#ifndef XARA_LEXER_H_
+#define XARA_LEXER_H_
+
 typedef enum {
     BEGINNING,
     INT,
@@ -20,8 +21,12 @@ typedef struct {
 } Token;
 
 void print_token(Token token);
-Token *generate_number(char *current,int *current_index);
-Token *generate_keyword(char *current,int *current_index);
-Token *generate_separator_or_operator(char *current,int *current_index,TokenType type);
+void print_tokens(Token *tokens);
+Token *generate_number(char *current, int *current_index);
+Token *generate_keyword_or_identifier(char *current, int *current_index);
+Token *generate_string_token(char *current, int *current_index);
+Token *generate_separator_or_operator(char *current, int *current_index, TokenType type);
 Token *lexer(FILE *file);
+
+
 #endif
