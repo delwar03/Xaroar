@@ -3,7 +3,7 @@ ki_kortechoch
   int i = 0;
   zotokhhon(i osoman 101){
     likh(i, 2);
-    i = i + 1
+    i = i + 1;
   }
 
-exit(147);
+exit(0);
