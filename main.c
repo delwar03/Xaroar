@@ -3,6 +3,9 @@
 
 #include "lexer.h"
 #include "parser.h"
+#include "codegenerator.h"
+#include "./hashmap/hashmapoperators.h"
+#include "./hashmap/hashmap.h"
 
 
 int main () {
@@ -10,7 +13,8 @@ int main () {
   Token *tokens = lexer(file);
   // print_tokens(tokens);
   Node *root = parser(tokens);
-  print_tree(root, 0, "");
+  // print_tree(root, 0, "root");
+  generate_code(root, "generated.asm");
 
   return 0;
 }

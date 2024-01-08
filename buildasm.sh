@@ -1,2 +1,2 @@
-nasm -f elf64 test.asm -o generated.o
-ld generated.o -o generated
+nasm -f win32 sample.asm -o sample.o
+gcc sample.o -o sample.exe
